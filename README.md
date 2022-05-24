@@ -1,10 +1,17 @@
-// Copyright (c) 2022 System233
-// 
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+<!--
+ Copyright (c) 2022 System233
+ 
+ This software is released under the MIT License.
+ https://opensource.org/licenses/MIT
+-->
 
+# WS-BI-RPC
+
+Bidirectional RPC based on WebSocket.
+
+## Easy to use
+```ts
 import { WebSocketServer,WebSocket ,WebSocketRPC } from "..";
-
 
 class ServerHander {
     say(message: string) {
@@ -20,7 +27,6 @@ const server = new WebSocketServer({ host: 'localhost', port: 8899 });
 server.on('connection', async (socket) => {
     const rpc = new WebSocketRPC<ClientHander>(socket, new ServerHander);
     await rpc.call('test', 'hello');
-    // socket.on('close')
 });
 
 
@@ -32,3 +38,7 @@ ws.on('open', async () => {
 })
 
 
+// message from server : hello
+// message from client: say message
+
+```
