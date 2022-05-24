@@ -1,0 +1,39 @@
+{
+  "name": "ws-bi-rpc",
+  "version": "0.0.1",
+  "description": "Bidirectional RPC based on WebSocket.",
+  "main": "dist/cjs/index.js",
+  "types": "index.ts",
+  "module": "dist/esm/index.js",
+  "scripts": {
+    "test": "npx ts-node tests/test.ts",
+    "clean": "rm -rf dist",
+    "build": "npm run build:esm&&npm run build:cjs",
+    "build:cjs": "npx tsc",
+    "build:esm": "npx tsc -p tsconfig.esm.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/System233/ws-bi-rpc.git"
+  },
+  "keywords": [
+    "WebSocket",
+    "Bidirectional",
+    "RPC"
+  ],
+  "author": "System233",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/System233/ws-bi-rpc/issues"
+  },
+  "homepage": "https://github.com/System233/ws-bi-rpc#readme",
+  "dependencies": {
+    "uuid": "^8.3.2",
+    "ws": "^8.6.0"
+  },
+  "devDependencies": {
+    "@types/uuid": "^8.3.4",
+    "@types/ws": "^8.5.3",
+    "typescript": "^4.6.4"
+  }
+}
