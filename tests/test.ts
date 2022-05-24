@@ -10,6 +10,10 @@ class ServerHander {
     say(message: string) {
         console.log('message from client:', message)
     }
+    echo(message:string){
+        console.log('echo:', message)
+        return message;
+    }
 }
 class ClientHander {
     test(message: string) {
@@ -29,6 +33,8 @@ const ws = new WebSocket('ws://localhost:8899');
 ws.on('open', async () => {
     const client = new WebSocketRPC<ServerHander>(ws, new ClientHander);
     await client.call('say', 'say message');
+    const echoRes=await client.call('echo', 'echo message');
+    console.log('echoRes',echoRes)
 })
 
 

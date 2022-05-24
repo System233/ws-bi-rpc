@@ -73,14 +73,14 @@ export class WebSocketRPC<T extends Record<string, any>> extends EventEmitter {
                         type: 'response',
                         id: rpc.id,
                         name: rpc.name,
-                        code: code,
-                        data: null,
+                        code,
+                        data,
                         message
                     });
                     if (rpc.name in this.handler) {
                         try {
-                            const data = await this.handler[rpc.name].apply(this.handler, rpc.data);
-                            await response(0, 'success', data);
+                            const result = await this.handler[rpc.name](...rpc.data);
+                            await response(0, 'success', result);
                         } catch (err) {
                             await response(-1, err + '', null);
                         }
@@ -88,7 +88,7 @@ export class WebSocketRPC<T extends Record<string, any>> extends EventEmitter {
                         await response(-1, 'unknown method:' + rpc.name, null);
                     }
                 } else if (rpc.type == 'response' && rpc.id) {
-                    this.emit(rpc.id, true, rpc.data);
+                    this.emit(rpc.id, rpc);
                 } else {
                     throw new WebSocketRPCUnknowDataError(data);
                 }
